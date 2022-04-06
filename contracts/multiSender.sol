@@ -10,8 +10,9 @@ contract multiSender is Ownable{
     constructor()payable {
         name = 'PayEmployees';
     }
-
-
+    
+    fallback() payable external {}
+    
     // Calculate the total amount of ether tbo be sent by the contract
     function calc(uint [] memory _receiver) pure private returns(uint){
         uint totalAmount = 0;

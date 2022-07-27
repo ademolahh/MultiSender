@@ -6,7 +6,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract multiSender is Ownable{
 
 
-    constructor()payable {}
     
     // Calculate the total amount of ether tbo be sent by the contract
     function calc(uint [] memory _receiver) pure private returns(uint){

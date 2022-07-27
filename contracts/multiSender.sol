@@ -5,7 +5,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract multiSender is Ownable{
 
-
     
     // Calculate the total amount of ether tbo be sent by the contract
     function calc(uint [] memory _receiver) pure private returns(uint){
@@ -48,8 +47,11 @@ contract multiSender is Ownable{
     }
 
     fallback() payable external {}
-    receive() payable external{}
+    receive() payable external{
+        emit Received(msg.sender, msg.value);
+    }
 
-    ///Event///
+    ///Events///
     event PayOut(address indexed _employeesAddr, uint256 indexed amount);
+    event Received(address indexed sender, uint256 indexed amount);
 }

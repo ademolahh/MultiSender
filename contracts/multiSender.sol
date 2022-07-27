@@ -4,14 +4,9 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract multiSender is Ownable{
-    // name of the contract
-    string public name;
 
-    constructor()payable {
-        name = 'PayEmployees';
-    }
-    
-    fallback() payable external {}
+
+    constructor()payable {}
     
     // Calculate the total amount of ether tbo be sent by the contract
     function calc(uint [] memory _receiver) pure private returns(uint){
@@ -42,6 +37,7 @@ contract multiSender is Ownable{
 
             // Calling the withdraw function
             withdraw(_employeesAddr[i], _amount[i]);
+             emit PayOut(_employeesAddr[i], _amount[i]);
         }
 
         return true;
@@ -51,4 +47,10 @@ contract multiSender is Ownable{
     function getContractEthBalance() public view returns(uint){
         return address(this).balance;
     }
+
+    fallback() payable external {}
+    receive() payable external{}
+
+    ///Event///
+    event PayOut(address indexed _employeesAddr, uint256 indexed amount);
 }
